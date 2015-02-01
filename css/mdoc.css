@@ -16,24 +16,6 @@ body {
   padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  margin-bottom: 0;
-  margin-top: 10px;
-}
-
-h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
-  margin-top: 0;
-}
-
-p, blockquote, ul, ol, dl, table, pre {
-  margin: 0;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
 .pane {
   height: 100%;
   overflow: auto;
