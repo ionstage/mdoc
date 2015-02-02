@@ -32,7 +32,9 @@
     var url = 'doc/' + addMarkdownExtension(name);
     loadFileText(url, function(text) {
       var htmlText = marked(text);
-      doc.getElementById('article-pane').innerHTML = htmlText;
+      var articlePane = doc.getElementById('article-pane');
+      articlePane.innerHTML = htmlText;
+      articlePane.scrollTop = 0;
     });
   }
 
