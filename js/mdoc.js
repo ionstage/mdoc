@@ -1,6 +1,12 @@
 (function(global) {
   var win = global.window;
   var doc = win.document;
+  var marked = (function() {
+    var converter = new Showdown.converter();
+    return function(text) {
+      return converter.makeHtml(text);
+    };
+  })();
 
   function createHttpRequest() {
     var xmlHttpNames = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'];
