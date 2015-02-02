@@ -4,13 +4,12 @@
   box-sizing: border-box;
 }
 
-html {
+html, body {
   height: 100%;
   overflow: hidden;
 }
 
 body {
-  height: 100%;
   margin: 0;
   max-width: none;
   padding: 0;
