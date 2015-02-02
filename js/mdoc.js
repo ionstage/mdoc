@@ -2,12 +2,28 @@
   var win = global.window;
   var doc = win.document;
 
+  function createHttpRequest() {
+    var xmlHttpNames = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'];
+    if ('ActiveXObject' in window) {
+      for (var i = 0, len = xmlHttpNames.length; i < len; i++) {
+        try {
+          return new ActiveXObject(xmlHttpNames[i]);
+        } catch (e) {}
+      }
+      return null;
+    } else if('XMLHttpRequest' in window){
+      return new XMLHttpRequest();
+    } else {
+      return null;
+    }
+  }
+
   function loadFileText(path, callback) {
-    var request = new XMLHttpRequest();
+    var request = createHttpRequest();
     request.open('GET', path, true);
     request.onreadystatechange = function() {
-      if (this.readyState === 4) {
-        callback(this.responseText);
+      if (request.readyState === 4) {
+        callback(request.responseText);
       }
     };
     request.send();
