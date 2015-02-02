@@ -15,10 +15,20 @@ body {
   padding: 0;
 }
 
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 16px !important;
+}
+
 .pane {
   height: 100%;
   overflow: auto;
-  padding: 0 8px;
+  padding: 8px 8px 0;
 }
 
 .index {

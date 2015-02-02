@@ -38,7 +38,7 @@
   function loadIndex(name) {
     var url = 'doc/' + addMarkdownExtension(name);
     loadFileText(url, function(text) {
-      var htmlText = marked(text);
+      var htmlText = marked(text) + '<br>';
       doc.getElementById('index-pane').innerHTML = htmlText;
     });
   }
@@ -53,7 +53,7 @@
   function changeArticle(name) {
     var url = 'doc/' + addMarkdownExtension(name);
     loadFileText(url, function(text) {
-      var htmlText = marked(text);
+      var htmlText = marked(text) + '<br>';
       var articlePane = doc.getElementById('article-pane');
       articlePane.innerHTML = htmlText;
       articlePane.scrollTop = 0;
