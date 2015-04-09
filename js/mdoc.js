@@ -1,12 +1,8 @@
 (function(global) {
-  var win = global.window;
-  var doc = win.document;
-  var marked = (function() {
-    var converter = new Showdown.converter();
-    return function(text) {
-      return converter.makeHtml(text);
-    };
-  })();
+  var window = global.window;
+  var document = global.document;
+
+  var converter = new Showdown.converter();
 
   function createHttpRequest() {
     var xmlHttpNames = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'];
@@ -14,23 +10,20 @@
       for (var i = 0, len = xmlHttpNames.length; i < len; i++) {
         try {
           return new ActiveXObject(xmlHttpNames[i]);
-        } catch (e) {}
+        } catch (e) {
+          continue;
+        }
       }
-      return null;
-    } else if('XMLHttpRequest' in window){
-      return new XMLHttpRequest();
-    } else {
-      return null;
     }
+    return new XMLHttpRequest();
   }
 
   function loadFileText(path, callback) {
     var request = createHttpRequest();
     request.open('GET', path, true);
     request.onreadystatechange = function() {
-      if (request.readyState === 4) {
+      if (request.readyState === 4)
         callback(request.responseText);
-      }
     };
     request.send();
   }
@@ -38,23 +31,22 @@
   function loadIndex(name) {
     var url = 'doc/' + addMarkdownExtension(name);
     loadFileText(url, function(text) {
-      var htmlText = marked(text) + '<br>';
-      doc.getElementById('index-pane').innerHTML = htmlText;
+      var htmlText = converter.makeHtml(text) + '<br>';
+      document.getElementById('index-pane').innerHTML = htmlText;
     });
   }
 
   function addMarkdownExtension(text) {
-    if (!(/.md$/.test(text))) {
+    if (!(/.md$/.test(text)))
       text += '.md';
-    }
     return text;
   }
 
   function changeArticle(name) {
     var url = 'doc/' + addMarkdownExtension(name);
     loadFileText(url, function(text) {
-      var htmlText = marked(text) + '<br>';
-      var articlePane = doc.getElementById('article-pane');
+      var htmlText = converter.makeHtml(text) + '<br>';
+      var articlePane = document.getElementById('article-pane');
       articlePane.innerHTML = htmlText;
       articlePane.scrollTop = 0;
     });
@@ -66,12 +58,12 @@
   }
 
   setTimeout((function() {
-    var current = getCurrentArticleName();
+    var cache = getCurrentArticleName();
     var watchHash = function() {
       var article = getCurrentArticleName();
-      if (article && current !== article) {
-        current = article;
+      if (article && article !== cache) {
         changeArticle(article);
+        cache = article;
       }
       setTimeout(watchHash, 60);
     };
