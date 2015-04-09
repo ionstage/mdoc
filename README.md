@@ -1,6 +1,6 @@
 # mdoc
 
-Create documents list based on Markdown
+Documents list template
 
 ## Quickstart guide
 
