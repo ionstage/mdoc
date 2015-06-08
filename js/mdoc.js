@@ -1,6 +1,5 @@
-(function(global) {
-  var window = global.window;
-  var document = global.document;
+(function(window) {
+  var document = window.document;
 
   var converter = new Showdown.converter();
 
