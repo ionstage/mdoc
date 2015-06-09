@@ -1,7 +1,9 @@
 (function(window) {
+  var showdown  = require('showdown');
+
   var document = window.document;
 
-  var converter = new Showdown.converter();
+  var converter = new showdown.Converter();
 
   function createHttpRequest() {
     var xmlHttpNames = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'];
