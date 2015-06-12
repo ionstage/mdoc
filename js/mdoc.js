@@ -58,18 +58,25 @@
     return (match) ? match[1] : '';
   }
 
-  setTimeout((function() {
-    var cache = getCurrentArticleName();
-    var watchHash = function() {
+  if ('onhashchange' in window) {
+    window.addEventListener('hashchange', function(event) {
       var article = getCurrentArticleName();
-      if (article && article !== cache) {
-        changeArticle(article);
-        cache = article;
-      }
-      setTimeout(watchHash, 60);
-    };
-    return watchHash;
-  })(), 60);
+      changeArticle(article);
+    });
+  } else {
+    setTimeout((function() {
+      var cache = getCurrentArticleName();
+      var watchHash = function() {
+        var article = getCurrentArticleName();
+        if (article && article !== cache) {
+          changeArticle(article);
+          cache = article;
+        }
+        setTimeout(watchHash, 60);
+      };
+      return watchHash;
+    })(), 60);
+  }
 
   loadIndex('index');
   changeArticle(getCurrentArticleName() || 'top');
