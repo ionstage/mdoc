@@ -1,7 +1,5 @@
-(function(window) {
-  var showdown  = require('showdown');
-
-  var document = window.document;
+(function() {
+  var showdown = require('showdown');
 
   var converter = new showdown.Converter();
 
@@ -55,7 +53,7 @@
 
   function getCurrentArticleName() {
     var match = location.hash.match(/^#!(.+)/);
-    return (match) ? match[1] : '';
+    return match ? match[1] : '';
   }
 
   if ('onhashchange' in window) {
@@ -80,4 +78,4 @@
 
   loadIndex('index');
   changeArticle(getCurrentArticleName() || 'top');
-})(this);
+})();
