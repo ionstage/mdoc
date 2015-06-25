@@ -58,10 +58,10 @@
   }
 
   if ('onhashchange' in window) {
-    window.addEventListener('hashchange', function(event) {
+    window.onhashchange = function(event) {
       var article = getCurrentArticleName();
       changeArticle(article);
-    });
+    };
   } else {
     setTimeout((function() {
       var cache = getCurrentArticleName();
