@@ -57,10 +57,21 @@
     return match ? match[1] : '';
   }
 
+  function clearTextSelection() {
+    if ('getSelection' in window) {
+      getSelection().removeAllRanges();
+    } else if ('createTextRange' in document.body) {
+      var range = document.body.createTextRange();
+      range.collapse(false);
+      range.select();
+    }
+  }
+
   if ('onhashchange' in window) {
     window.onhashchange = function(event) {
       var article = getCurrentArticleName();
       changeArticle(article);
+      clearTextSelection();
     };
   } else {
     setTimeout((function() {
@@ -70,6 +81,7 @@
         if (article && article !== cache) {
           changeArticle(article);
           cache = article;
+          clearTextSelection();
         }
         setTimeout(watchHash, 60);
       };
