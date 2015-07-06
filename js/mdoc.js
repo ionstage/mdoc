@@ -59,7 +59,7 @@
 
   function clearTextSelection() {
     if ('getSelection' in window) {
-      getSelection().removeAllRanges();
+      window.getSelection().removeAllRanges();
     } else if ('createTextRange' in document.body) {
       var range = document.body.createTextRange();
       range.collapse(false);
