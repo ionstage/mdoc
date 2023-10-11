@@ -42,7 +42,7 @@
   }
 
   function addMarkdownExtension(name) {
-    if (!(/.md$/.test(name))) {
+    if (!(/\.md$/.test(name))) {
       name += '.md';
     }
     return name;
