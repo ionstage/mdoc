@@ -6,7 +6,7 @@ Document list template
 
 - Simple documentation with index list
 - Edit only markdown files, no generator or compiler
-- Cross-browser: works on IE6+, Firefox, Safari, Chrome, Opera
+- Cross-browser: works on IE11, Firefox, Safari, Chrome, Opera
 
 ## Quickstart guide
 
