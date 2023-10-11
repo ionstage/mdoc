@@ -23,8 +23,9 @@
     var request = createHttpRequest();
     request.open('GET', path, true);
     request.onreadystatechange = function() {
-      if (request.readyState === 4)
+      if (request.readyState === 4) {
         callback(request.responseText);
+      }
     };
     request.send();
   }
@@ -37,10 +38,11 @@
     });
   }
 
-  function addMarkdownExtension(text) {
-    if (!(/.md$/.test(text)))
-      text += '.md';
-    return text;
+  function addMarkdownExtension(name) {
+    if (!(/.md$/.test(name))) {
+      name += '.md';
+    }
+    return name;
   }
 
   function changeArticle(name) {
