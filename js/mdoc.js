@@ -23,8 +23,11 @@
     var request = createHttpRequest();
     request.open('GET', path, true);
     request.onreadystatechange = function() {
-      if (request.readyState === 4) {
-        callback(request.responseText);
+      if (request.readyState === XMLHttpRequest.DONE) {
+        var status = request.status;
+        if (status === 0 || (status >= 200 && status < 400)) {
+          callback(request.responseText);
+        }
       }
     };
     request.send();
