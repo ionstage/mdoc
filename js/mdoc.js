@@ -99,11 +99,11 @@
     window.getSelection().removeAllRanges();
   }
 
-  window.onhashchange = function(event) {
+  window.addEventListener('hashchange', function() {
     var article = getCurrentArticleName();
     changeArticle(article);
     clearTextSelection();
-  };
+  });
 
   loadIndex('index');
   changeArticle(getCurrentArticleName() || 'top');
