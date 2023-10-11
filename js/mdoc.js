@@ -1,6 +1,8 @@
 (function() {
   'use strict';
 
+  showdown.setOption('tables', true);
+
   var converter = new showdown.Converter();
 
   function createHttpRequest() {
