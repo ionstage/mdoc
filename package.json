@@ -2,15 +2,13 @@
   "name": "mdoc",
   "version": "0.1.1",
   "scripts": {
-    "bundle": "browserify -r showdown -o js/bundle.js; curl https://raw.githubusercontent.com/nicolashery/markdownpad-github/master/markdownpad-github.css -o css/bundle.css",
     "start": "browser-sync start --files='index.html, css/*.css, js/*.js' --server"
   },
   "dependencies": {
-    "showdown": "^1.0.2"
+    "showdown": "^2.1.0"
   },
   "devDependencies": {
-    "browser-sync": "^2.7.6",
-    "browserify": "^10.2.4"
+    "browser-sync": "^2.7.6"
   },
   "private": true
 }
