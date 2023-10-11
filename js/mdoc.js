@@ -51,15 +51,25 @@
       el.parentNode.removeChild(el);
       window.removeEventListener('message', onmessage);
       callback(event.data.toString().trim());
-      loadJSFileRequests.shift();
-      if (loadJSFileRequests.length > 0) {
-        var request = loadJSFileRequests[0];
-        loadJSFileInner(request[0], request[1]);
-      }
+      loadNextJSFile();
     };
     el.src = path;
+    el.onerror = function() {
+      el.parentNode.removeChild(el);
+      window.removeEventListener('message', onmessage);
+      callback('');
+      loadNextJSFile();
+    };
     window.addEventListener('message', onmessage);
     document.getElementsByTagName('head')[0].appendChild(el);
+  }
+
+  function loadNextJSFile() {
+    loadJSFileRequests.shift();
+    if (loadJSFileRequests.length > 0) {
+      var request = loadJSFileRequests[0];
+      loadJSFileInner(request[0], request[1]);
+    }
   }
 
   function loadIndex(name) {
