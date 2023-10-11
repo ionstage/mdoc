@@ -5,6 +5,8 @@
 
   var converter = new showdown.Converter();
 
+  var loadJSFileRequests = [];
+
   function createHttpRequest() {
     var xmlHttpNames = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'];
     if ('ActiveXObject' in window) {
@@ -27,10 +29,37 @@
         var status = request.status;
         if (status === 0 || (status >= 200 && status < 400)) {
           callback(request.responseText);
+        } else {
+          loadJSFile(addJavaScriptExtension(path), callback);
         }
       }
     };
     request.send();
+  }
+
+  function loadJSFile(path, callback) {
+    loadJSFileRequests.push([path, callback]);
+    if (loadJSFileRequests.length > 1) {
+      return;
+    }
+    loadJSFileInner(path, callback);
+  }
+
+  function loadJSFileInner(path, callback) {
+    var el = document.createElement('script');
+    var onmessage = function(event) {
+      el.parentNode.removeChild(el);
+      window.removeEventListener('message', onmessage);
+      callback(event.data.toString().trim());
+      loadJSFileRequests.shift();
+      if (loadJSFileRequests.length > 0) {
+        var request = loadJSFileRequests[0];
+        loadJSFileInner(request[0], request[1]);
+      }
+    };
+    el.src = path;
+    window.addEventListener('message', onmessage);
+    document.getElementsByTagName('head')[0].appendChild(el);
   }
 
   function loadIndex(name) {
@@ -44,6 +73,13 @@
   function addMarkdownExtension(name) {
     if (!(/\.md$/.test(name))) {
       name += '.md';
+    }
+    return name;
+  }
+
+  function addJavaScriptExtension(name) {
+    if (!(/\.js$/.test(name))) {
+      name += '.js';
     }
     return name;
   }
