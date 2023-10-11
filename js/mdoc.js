@@ -7,22 +7,8 @@
 
   var loadJSFileRequests = [];
 
-  function createHttpRequest() {
-    var xmlHttpNames = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'];
-    if ('ActiveXObject' in window) {
-      for (var i = 0, len = xmlHttpNames.length; i < len; i++) {
-        try {
-          return new ActiveXObject(xmlHttpNames[i]);
-        } catch (e) {
-          continue;
-        }
-      }
-    }
-    return new XMLHttpRequest();
-  }
-
   function loadFileText(path, callback) {
-    var request = createHttpRequest();
+    var request = new XMLHttpRequest();
     request.open('GET', path, true);
     request.onreadystatechange = function() {
       if (request.readyState === XMLHttpRequest.DONE) {
@@ -110,36 +96,14 @@
   }
 
   function clearTextSelection() {
-    if ('getSelection' in window) {
-      window.getSelection().removeAllRanges();
-    } else if ('createTextRange' in document.body) {
-      var range = document.body.createTextRange();
-      range.collapse(false);
-      range.select();
-    }
+    window.getSelection().removeAllRanges();
   }
 
-  if ('onhashchange' in window) {
-    window.onhashchange = function(event) {
-      var article = getCurrentArticleName();
-      changeArticle(article);
-      clearTextSelection();
-    };
-  } else {
-    setTimeout((function() {
-      var cache = getCurrentArticleName();
-      var watchHash = function() {
-        var article = getCurrentArticleName();
-        if (article && article !== cache) {
-          changeArticle(article);
-          cache = article;
-          clearTextSelection();
-        }
-        setTimeout(watchHash, 60);
-      };
-      return watchHash;
-    })(), 60);
-  }
+  window.onhashchange = function(event) {
+    var article = getCurrentArticleName();
+    changeArticle(article);
+    clearTextSelection();
+  };
 
   loadIndex('index');
   changeArticle(getCurrentArticleName() || 'top');
