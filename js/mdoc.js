@@ -7,6 +7,8 @@
 
   var loadJSFileRequests = [];
 
+  var isIE = !!document.documentMode;
+
   function createHttpRequest() {
     if ('ActiveXObject' in window) {
       var xmlHttpNames = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'];
@@ -27,7 +29,7 @@
     request.onreadystatechange = function() {
       if (request.readyState === XMLHttpRequest.DONE) {
         var status = request.status;
-        if (status === 0 || (status >= 200 && status < 400)) {
+        if ((isIE && status === 0) || (status >= 200 && status < 400)) {
           callback(request.responseText);
         } else {
           loadJSFile(addJavaScriptExtension(path), callback);
