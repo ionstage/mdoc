@@ -7,8 +7,22 @@
 
   var loadJSFileRequests = [];
 
+  function createHttpRequest() {
+    if ('ActiveXObject' in window) {
+      var xmlHttpNames = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'];
+      for (var i = 0, len = xmlHttpNames.length; i < len; i++) {
+        try {
+          return new ActiveXObject(xmlHttpNames[i]);
+        } catch (e) {
+          continue;
+        }
+      }
+    }
+    return new XMLHttpRequest();
+  }
+
   function loadFileText(path, callback) {
-    var request = new XMLHttpRequest();
+    var request = createHttpRequest();
     request.open('GET', path, true);
     request.onreadystatechange = function() {
       if (request.readyState === XMLHttpRequest.DONE) {
@@ -20,7 +34,11 @@
         }
       }
     };
-    request.send();
+    try {
+      request.send();
+    } catch (error) {
+      // do nothing
+    }
   }
 
   function loadJSFile(path, callback) {
