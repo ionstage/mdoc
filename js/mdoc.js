@@ -4,9 +4,7 @@
   showdown.setOption('tables', true);
 
   var converter = new showdown.Converter();
-
   var loadJSFileRequests = [];
-
   var isIE = !!document.documentMode;
 
   function createHttpRequest() {
@@ -112,7 +110,7 @@
 
   function getCurrentArticleName() {
     var match = location.hash.match(/^#!(.+)/);
-    return match ? match[1] : '';
+    return (match ? match[1] : '');
   }
 
   function clearTextSelection() {
