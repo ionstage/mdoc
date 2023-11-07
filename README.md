@@ -1,6 +1,6 @@
 # mdoc
 
-Document list template
+Simple documentation format that can run without a server
 
 ## Features
 
