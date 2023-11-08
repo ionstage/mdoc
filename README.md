@@ -4,29 +4,29 @@ Simple documentation format that can run without a server
 
 ## Features
 
-- Simple documentation with index list
-- Edit only markdown files, no generator or compiler
+- Simple document with an index of contents
+- Edit only markdown files locally, no generator or compiler
 - Cross-browser: works on IE11, Firefox, Safari, Chrome, Opera
 
 ## Quickstart guide
 
-#### 1. Create markdown documents under _doc_ folder
+#### 1. Create markdown files under _doc_ folder
 
-  - Use '.md' extension for recognizing as a document file
+  - Use '.md' extension to recognize it as a document file
   - Set link to the other document with starting '#!'
     - e.g.) #!sample/sample2 (link to _doc/sample/sample2.md_)
 
 #### 2. Edit _index.md_ and _top.md_
 
-  - **index.md**: menu (left pane)
+  - **index.md**: index of contents (left pane)
   - **top.md**: start page
 
 #### 3. Open _index.html_ in a browser
 
 That's it!
 
-## License
-Copyright &copy; 2015 iOnStage
-Licensed under the [MIT License][mit].
+\* You need to configure settings to allow the browser to load local files
 
-[MIT]: http://www.opensource.org/licenses/mit-license.php
+## License
+&copy; 2015 iOnStage
+Licensed under the MIT License.
