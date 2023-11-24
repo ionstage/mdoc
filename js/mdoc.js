@@ -52,18 +52,21 @@
   function loadJSFileInner(path, callback) {
     var el = document.createElement('script');
     var onmessage = function(event) {
+      el.removeEventListener('error', onerror);
       el.parentNode.removeChild(el);
       window.removeEventListener('message', onmessage);
       callback(event.data.toString().trim());
       loadNextJSFile();
     };
-    el.src = path;
-    el.onerror = function() {
+    var onerror = function() {
+      el.removeEventListener('error', onerror);
       el.parentNode.removeChild(el);
       window.removeEventListener('message', onmessage);
       callback('');
       loadNextJSFile();
     };
+    el.src = path;
+    el.addEventListener('error', onerror);
     window.addEventListener('message', onmessage);
     document.getElementsByTagName('head')[0].appendChild(el);
   }
