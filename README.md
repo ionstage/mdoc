@@ -8,6 +8,10 @@ Simple documentation format that can run without a server
 - Edit only markdown files locally, no generator or compiler
 - Cross-browser: works on IE11, Firefox, Safari, Chrome, Opera
 
+## Demo
+
+- [Sample](https://www.ionstage.org/mdoc/index.html)
+
 ## Quickstart guide
 
 #### 1. Create markdown files under _doc_ folder
