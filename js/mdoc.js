@@ -112,7 +112,11 @@
   }
 
   function getCurrentArticleName() {
-    var match = location.hash.match(/^#!(.+)/);
+    var hash = location.hash;
+    if (!hash) {
+      return 'top';
+    }
+    var match = hash.match(/^#!(.+)/);
     return (match ? match[1] : '');
   }
 
@@ -121,11 +125,10 @@
   }
 
   window.addEventListener('hashchange', function() {
-    var article = getCurrentArticleName();
-    changeArticle(article);
+    changeArticle(getCurrentArticleName());
     clearTextSelection();
   });
 
   loadIndex('index');
-  changeArticle(getCurrentArticleName() || 'top');
+  changeArticle(getCurrentArticleName());
 })();
