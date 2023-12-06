@@ -62,7 +62,7 @@
       el.removeEventListener('error', onerror);
       el.parentNode.removeChild(el);
       window.removeEventListener('message', onmessage);
-      callback('');
+      callback('ERROR');
       loadNextJSFile();
     };
     el.src = path;
@@ -102,13 +102,19 @@
   }
 
   function changeArticle(name) {
-    var url = 'doc/' + addMarkdownExtension(name);
-    loadFileText(url, function(text) {
-      var htmlText = converter.makeHtml(text) + '<br>';
-      var articlePane = document.getElementById('article-pane');
-      articlePane.innerHTML = htmlText;
-      articlePane.scrollTop = 0;
-    });
+    if (name) {
+      var url = 'doc/' + addMarkdownExtension(name);
+      loadFileText(url, updateArticlePane);
+    } else {
+      updateArticlePane('NOT FOUND');
+    }
+  }
+
+  function updateArticlePane(text) {
+    var htmlText = converter.makeHtml(text) + '<br>';
+    var articlePane = document.getElementById('article-pane');
+    articlePane.innerHTML = htmlText;
+    articlePane.scrollTop = 0;
   }
 
   function getCurrentArticleName() {
